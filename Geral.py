@@ -12,7 +12,7 @@ st.sidebar.header("Pacheco Solar PP", divider=True)
 @st.cache_data
 def load_data():
     # Load the CSV data into a DataFrame
-    df = pd.read_csv('/Users/carloscarvalho/PycharmProjects/Usina_Solar_Dashboard/first_dashboard_db.csv') #'https://raw.githubusercontent.com/loscarlo/solar_pp_monitor/main/first_dashboard_db.csv'
+    df = pd.read_csv('https://raw.githubusercontent.com/loscarlo/solar_pp_monitor/main/first_dashboard_db.csv')  # '/Users/carloscarvalho/PycharmProjects/Usina_Solar_Dashboard/first_dashboard_db.csv'
     df['data'] = pd.to_datetime(df['data'], dayfirst=True)  # Convert the 'data' column to datetime
     df['month_year'] = df['data'].dt.to_period('M')  # Extract the month and year from the 'data' column
     df['valor_pago'] = df['valor_pago'].str.replace('R$', '').str.replace(',', '.').astype(float) # cleaning '%', 'R$',',' and converting to float
