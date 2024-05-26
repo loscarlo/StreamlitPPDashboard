@@ -17,6 +17,7 @@ df_filtrada_uc = df[(df['month_year'] <= filtro_mes) & (df['unidade'] == filtro_
 
 # Define layout
 col1, col2 = st.columns([0.5, 0.5])
+col3, col4 = st.columns([0.5, 0.5])
 col6, col7, col8 = st.columns([2,1,1])
 
 # area chart for 'consumo' over time
@@ -31,7 +32,7 @@ consumo_delta_uc = ((consumo_avg_uc / df_filtrada_uc.groupby('month_year')['cons
 # col2.write(' ')
 # col2.write(' ')
 # col2.write(' ')
-# col2.write(' ')
+col2.write(' ')
 col2.write(' ')
 col2.write(' ')
 col2.write(' ')
@@ -49,8 +50,8 @@ col2.write(' ')
 col2.write(' ')
 
 # area chart for 'data' vs 'saldo_credito'
-col1.subheader('Créditos de Energia', divider=True)
-col1.area_chart(df_filtrada_uc, x='data', y='saldo_credito')
+col3.subheader('Créditos de Energia', divider=True)
+col3.area_chart(df_filtrada_uc, x='data', y='saldo_credito')
 
 # Calculo do estoque de creditos e delta mes
 estoque_credito_uc = df_filtrada_uc['credito_mes'].sum()
@@ -62,24 +63,24 @@ duracao_estoque_uc_prior = df_filtrada_uc['credito_mes'][:-1].sum() / df_filtrad
 duracao_delta_uc = (duracao_estoque_uc / duracao_estoque_uc_prior - 1)*100
 
 # container Estoque de Energia e duracao
-col2.write(' ')
-col2.write(' ')
-col2.write(' ')
-col2.write(' ')
-col2.write(' ')
-col2.write(' ')
-col2.write(' ')
-col2.write(' ')
-col2.write(' ')
-container_estoque_uc = col2.container(border=True)
+col4.write(' ')
+col4.write(' ')
+col4.write(' ')
+col4.write(' ')
+# col4.write(' ')
+# col4.write(' ')
+# col4.write(' ')
+# col4.write(' ')
+# col4.write(' ')
+container_estoque_uc = col4.container(border=True)
 container_estoque_uc.metric(label="Estoque de Energia", value=f'{estoque_credito_uc:.0f} kWh', delta=f'{estoque_delta_uc:.1f} %', delta_color='normal')
 container_estoque_uc.metric(label="Duração", value=f'{duracao_estoque_uc:.1f} Meses', delta=f'{duracao_delta_uc:.1f} %', delta_color='normal')
-col2.write(' ')
-col2.write(' ')
-col2.write(' ')
-col2.write(' ')
-col2.write(' ')
-col2.write(' ')
+col4.write(' ')
+col4.write(' ')
+col4.write(' ')
+col4.write(' ')
+col4.write(' ')
+col4.write(' ')
 
 # area chart for 'economia' vs despesa mensal
 col6.subheader('Economia & Despesa', divider=True)
