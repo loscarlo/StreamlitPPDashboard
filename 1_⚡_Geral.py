@@ -12,7 +12,7 @@ st.sidebar.header("Pacheco Solar PP", divider=True)
 @st.cache_data
 def load_data():
     # Load the CSV data into a DataFrame
-    df = pd.read_csv('https://raw.githubusercontent.com/loscarlo/solar_pp_monitor/main/first_dashboard_db.csv')   #'/Users/carloscarvalho/PycharmProjects/Usina_Solar_Dashboard/first_dashboard_db.csv'
+    df = pd.read_csv('/Users/carloscarvalho/PycharmProjects/Usina_Solar_Dashboard/first_dashboard_db.csv')   # 'https://raw.githubusercontent.com/loscarlo/solar_pp_monitor/main/first_dashboard_db.csv'
     df['data'] = pd.to_datetime(df['data'], dayfirst=True)  # Convert the 'data' column to datetime
     df['month_year'] = df['data'].dt.to_period('M')  # Extract the month and year from the 'data' column
     df['valor_pago'] = df['valor_pago'].str.replace('R$', '').str.replace(',', '.').astype(float) # cleaning '%', 'R$',',' and converting to float
@@ -142,18 +142,30 @@ time_to_pb_global = pb_status_global / consumo_avg
 container_payback = col8.container(border=True)
 
 #Pay Back Status gauge chart :
-
-with col8:
-    st.subheader('Payback', divider=True)
-    # st.write(' ')
-    st.markdown(f"Faltam **:blue-background[{time_to_pb_global:.0f}]** *meses*.")
-    streamviz.gauge(pb_percent_global,
-                # gTitle='Payback',
-                gMode='gauge+number',
-                gSize='SML',
-                sFix='%',
-                gTheme='#d6d6d6'
-                )
+if time_to_pb_global > 0:
+    with col8:
+        st.subheader('Payback', divider=True)
+        # st.write(' ')
+        st.markdown(f"Faltam **:blue-background[{time_to_pb_global:.0f}]** *meses*.")
+        streamviz.gauge(pb_percent_global,
+                    # gTitle='Payback',
+                    gMode='gauge+number',
+                    gSize='SML',
+                    sFix='%',
+                    gTheme='#d6d6d6'
+                    )
+else:
+    with col8:
+        st.subheader('Payback', divider=True)
+        # st.write(' ')
+        st.markdown(f"Concluído há **:blue-background[{-(time_to_pb_global):.0f}]** *meses*.")
+        streamviz.gauge(pb_percent_global,
+                    # gTitle='Payback',
+                    gMode='gauge+number',
+                    gSize='SML',
+                    sFix='%',
+                    gTheme='#d6d6d6'
+                    )
 st.divider()
 # row1 = st.columns(1)
 # row2 = st.columns(1)

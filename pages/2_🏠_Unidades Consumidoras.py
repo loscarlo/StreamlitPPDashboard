@@ -130,17 +130,29 @@ time_to_pb_global = pb_status_global / consumo_avg_uc
 container_payback = col8.container(border=True)
 
 #Pay Back Status gauge chart :
-
-with col8:
-    st.subheader('Payback', divider=True)
-    # st.write(' ')
-    st.markdown(f"Faltam **:blue-background[{time_to_pb_global:.0f}]** *meses*.")
-    streamviz.gauge(pb_percent_global,
-                    # gTitle='Payback',
-                    gMode='gauge+number',
-                    gSize='SML',
-                    sFix='%',
-                    gTheme='#d6d6d6'
-                    )
+if time_to_pb_global > 0:
+   with col8:
+        st.subheader('Payback', divider=True)
+        # st.write(' ')
+        st.markdown(f"Faltam **:blue-background[{time_to_pb_global:.0f}]** *meses*.")
+        streamviz.gauge(pb_percent_global,
+                        # gTitle='Payback',
+                        gMode='gauge+number',
+                        gSize='SML',
+                        sFix='%',
+                        gTheme='#d6d6d6'
+                        )
+else:
+    with col8:
+        st.subheader('Payback', divider=True)
+        # st.write(' ')
+        st.markdown(f"Concluído há **:blue-background[{-(time_to_pb_global):.0f}]** *meses*.")
+        streamviz.gauge(pb_percent_global,
+                        # gTitle='Payback',
+                        gMode='gauge+number',
+                        gSize='SML',
+                        sFix='%',
+                        gTheme='#d6d6d6'
+                        )
 
 st.divider()
