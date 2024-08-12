@@ -21,7 +21,7 @@ col3, col4 = st.columns([0.5, 0.5])
 col6, col7, col8 = st.columns([2,1,1])
 
 # area chart for 'consumo' over time
-col1.subheader('Geração vs Consumo (kWh)', divider=True)
+col1.subheader('Consumo (kWh)', divider=True)
 col1.bar_chart(df_filtrada_uc.groupby('data')[['consumo']].sum(), color="#F08080")
 
 # Calculo do consumo médio
